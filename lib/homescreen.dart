@@ -8,8 +8,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen>
     with SingleTickerProviderStateMixin {
-  int leftDiceNumber = 1;
-  int rightDiceNumber = 1;
+  int leftdice = 1;
+  int rightdice = 1;
   AnimationController _controller;
   CurvedAnimation animation;
 
@@ -25,38 +25,35 @@ class _HomeScreenState extends State<HomeScreen>
     _controller.dispose();
   }
 
-  animate(){
-     _controller =
+  animate() {
+    _controller =
         AnimationController(duration: Duration(seconds: 1), vsync: this);
-        animation= CurvedAnimation(parent: _controller,curve: Curves.bounceOut);
+    animation = CurvedAnimation(parent: _controller, curve: Curves.bounceOut);
     animation.addListener(() {
-      setState(() {
-        
-      });
+      setState(() {});
       // print(_controller.value);
     });
-   animation.addStatusListener((status) {
+    animation.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
         setState(() {
-      leftDiceNumber = Random().nextInt(6) + 1;
-      rightDiceNumber = Random().nextInt(6) + 1;
-    });
-        // print('Completed');
-       _controller.reverse();
+          leftdice = Random().nextInt(6) + 1;
+          rightdice = Random().nextInt(6) + 1;
+        });
+        //print('complete');
+        _controller.reverse();
       }
     });
   }
 
   void roll() {
     _controller.forward();
-    
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Dicee'),
+        title: Text('dice roller'),
       ),
       body: Center(
         child: Column(
@@ -68,10 +65,10 @@ class _HomeScreenState extends State<HomeScreen>
                   child: GestureDetector(
                     onDoubleTap: roll,
                     child: Padding(
-                      padding: EdgeInsets.all(15),
-                      child: Image(height:200- (animation.value)*200,
-                        image: AssetImage(
-                            'assets/images/dice-png-$leftDiceNumber.png'),
+                      padding: EdgeInsets.all(20),
+                      child: Image(
+                        height: 200 - (animation.value) * 200,
+                        image: AssetImage('images/dice-png-$leftdice.png'),
                       ),
                     ),
                   ),
@@ -80,22 +77,19 @@ class _HomeScreenState extends State<HomeScreen>
                   child: GestureDetector(
                     onDoubleTap: roll,
                     child: Padding(
-                      padding: EdgeInsets.all(15),
-                      child: Image(height:200- (animation.value)*200,
-                        image: AssetImage(
-                            'assets/images/dice-png-$rightDiceNumber.png'),
+                      padding: EdgeInsets.all(20),
+                      child: Image(
+                        height: 200 - (animation.value) * 200,
+                        image: AssetImage('images/dice-png-$rightdice.png'),
                       ),
                     ),
                   ),
                 )
               ],
             ),
-            RaisedButton(
+            FloatingActionButton(
               onPressed: roll,
-              child: Text(
-                'Roll',
-                style: TextStyle(fontWeight: FontWeight.bold),
-              ),
+              child: Text('roll me'),
             )
           ],
         ),

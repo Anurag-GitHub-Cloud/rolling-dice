@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:rolling_Dice/homescreen.dart';
-import 'package:rolling_Dice/splash.dart';
-
 
 void main() {
   runApp(
